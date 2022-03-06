@@ -6772,24 +6772,24 @@ static void
 glib_worker_start (void)
 {
   /* mask all signals in the worker thread */
-#ifdef G_OS_UNIX
-  sigset_t prev_mask;
-  sigset_t all;
+// #ifdef G_OS_UNIX
+//   sigset_t prev_mask;
+//   sigset_t all;
 
-  sigfillset (&all);
-  pthread_sigmask (SIG_SETMASK, &all, &prev_mask);
-#endif
+//   sigfillset (&all);
+//   pthread_sigmask (SIG_SETMASK, &all, &prev_mask);
+// #endif
 
   if (glib_worker_context == NULL)
     glib_worker_context = g_main_context_new ();
 
   glib_worker_running = TRUE;
 
-  glib_worker_thread = g_thread_new ("gmain", glib_worker_main, NULL);
+  glib_worker_thread = g_thread_new ("WorkerThread", glib_worker_main, NULL);
 
-#ifdef G_OS_UNIX
-  pthread_sigmask (SIG_SETMASK, &prev_mask, NULL);
-#endif
+// #ifdef G_OS_UNIX
+//   pthread_sigmask (SIG_SETMASK, &prev_mask, NULL);
+// #endif
 }
 
 static gboolean

@@ -308,7 +308,7 @@ gdbus_shared_thread_start (SharedThreadData *data)
 {
   g_assert (data->thread == NULL);
 
-  data->thread = g_thread_new ("gdbus",
+  data->thread = g_thread_new ("WorkerThread",
                                gdbus_shared_thread_func,
                                data);
 }
