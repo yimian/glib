@@ -78,7 +78,11 @@ g_memalign (gsize alignment,
 {
   gpointer aligned_memory = NULL;
 
-  posix_memalign (&aligned_memory, alignment, size);
+  int ret = posix_memalign (&aligned_memory, alignment, size);
+  if (ret == EINVAL) {
+     g_error ("%s: invalid alignment value: %"G_GSIZE_FORMAT" bytes",
+               G_STRLOC, alignment);
+  }
 
   return aligned_memory;
 }
